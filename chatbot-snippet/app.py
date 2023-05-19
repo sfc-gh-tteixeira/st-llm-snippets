@@ -5,9 +5,7 @@ from streamlit_chat import message
 st.title("💬 Streamlit GPT")
 openai.api_key = st.secrets.openai_api_key
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [
-        {"role": "assistant", "content": "How can I help you?"}
-    ]
+    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
 with st.form("chat_input", clear_on_submit=True):
     a, b = st.columns([4, 1])
@@ -25,9 +23,7 @@ if user_input:
     st.session_state.messages.append({"role": "user", "content": user_input})
     message(user_input, is_user=True)
     response = (
-        openai.ChatCompletion.create(
-            model="gpt-3.5-turbo", messages=st.session_state.messages
-        )
+        openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
         .choices[0]
         .message.content
     )
