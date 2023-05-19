@@ -4,8 +4,10 @@ from langchain.chat_models import ChatOpenAI
 from langchain.agents import initialize_agent, Tool
 from langchain.agents import AgentType
 
-st.title('🧠🔎🔗 Search with LangChain')
-question = st.text_input("What do you want to know?", value="Who won the Women's U.S. Open in 2018?")
+st.title("🔎 Search with LangChain")
+question = st.text_input(
+    "What do you want to know?",
+    placeholder="Who won the Women's U.S. Open in 2018?")
 
 llm = ChatOpenAI(model_name="gpt-3.5-turbo", openai_api_key=st.secrets.openai_api_key)
 search = GoogleSerperAPIWrapper(serper_api_key=st.secrets.serper_api_key)
@@ -18,4 +20,5 @@ search_agent = initialize_agent([search_tool], llm, agent=AgentType.ZERO_SHOT_RE
 
 if question:
     response = search_agent.run(question)
-    st.write(f"### Answer\n\n{response}")
+    st.write("### Answer")
+    st.write(response)
