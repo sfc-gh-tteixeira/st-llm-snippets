@@ -1,5 +1,5 @@
-import streamlit as st
 import openai
+import streamlit as st
 from streamlit_chat import message
 
 st.title("💬 Streamlit GPT")
@@ -22,10 +22,7 @@ for msg in st.session_state.messages:
 if user_input:
     st.session_state.messages.append({"role": "user", "content": user_input})
     message(user_input, is_user=True)
-    response = (
-        openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
-        .choices[0]
-        .message.content
-    )
-    st.session_state.messages.append({"role": "assistant", "content": response})
-    message(response)
+    response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
+    msg = response.choices[0].message
+    st.session_state.messages.append({"role": "assistant", "content": msg.content})
+    message(msg.content)
