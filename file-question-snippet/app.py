@@ -6,7 +6,8 @@ uploaded_file = st.file_uploader("Upload an article", type="pdf")
 question = st.text_input(
     "Ask something about the article",
     placeholder="Can you give me a short summary?",
-    disabled=not uploaded_file)
+    disabled=not uploaded_file,
+)
 
 if uploaded_file and question:
     article = uploaded_file.read().decode()
@@ -16,7 +17,7 @@ if uploaded_file and question:
     client = anthropic.Client(st.secrets.anthropic_api_key)
     response = client.completion(
         prompt=prompt,
-        stop_sequences = [anthropic.HUMAN_PROMPT],
+        stop_sequences=[anthropic.HUMAN_PROMPT],
         model="claude-v1",
         max_tokens_to_sample=100,
     )
